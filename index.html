@@ -1,1 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hamza Ait Taleb — Portfolio</title>
+  <style>
+    :root{--bg:#0b0f17;--card:#111827;--text:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--accent:#60a5fa;}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#070a10, var(--bg));color:var(--text);}
+    a{color:inherit;text-decoration:none} a:hover{color:var(--accent)}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    header{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;padding:26px 0 10px}
+    .name{font-size:34px;line-height:1.1;margin:0}
+    .tag{margin:8px 0 0;color:var(--muted);font-size:16px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:12px}
+    .btn.primary{border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.12)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:18px}
+    .card{grid-column:span 12;background:rgba(17,24,39,.75);border:1px solid var(--line);border-radius:18px;padding:16px}
+    @media (min-width:760px){.card.half{grid-column:span 6}.card.third{grid-column:span 4}}
+    h2{margin:0 0 10px;font-size:18px}
+    p{margin:8px 0;color:var(--text)}
+    .muted{color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02)}
+    ul{margin:10px 0 0 18px;color:var(--text)}
+    footer{margin-top:22px;color:var(--muted);font-size:13px}
+    .sep{height:1px;background:var(--line);margin:18px 0}
+  </style>
+</head>
 
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1 class="name">Hamza Ait Taleb</h1>
+        <div class="tag">Electronics / Embedded / Instrumentation — Portfolio</div>
+        <div class="tag muted">ENSEIRB-MATMECA (Bordeaux INP) • Exchange at POSTECH • Open to internships / entry roles</div>
+      </div>
+      <div class="btns">
+        <!-- Step later: upload your CV PDF and change href to the file name, e.g. CV.pdf -->
+        <a class="btn primary" href="#" title="Upload your CV PDF to the repo, then link it here">Download CV (PDF)</a>
+        <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Email</a>
+        <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2>About</h2>
+        <p class="muted">
+          I’m an electronics engineering student focused on embedded systems, instrumentation, and signal processing.
+          I like building real systems end-to-end: sensing → acquisition → analysis → validation.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Featured Projects</h2>
+
+        <div class="sep"></div>
+
+        <h2>1) CFL (Luxembourg) — Instrumentation & Monitoring (MVT-PO)</h2>
+        <p class="muted">Industrial internship: acquisition chain, synchronization, validation, and signal analysis for a 3-phase system.</p>
+        <ul>
+          <li>Defined measurement chain for 3-phase voltage/current signals (integrity, timestamping, calibration).</li>
+          <li>Real-time data communication to cloud, with secure streaming and automatic archiving.</li>
+          <li>MATLAB/Simulink modeling + field validation scenarios.</li>
+          <li>Signal processing: FFT indicators and tracking of frequency signatures.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Instrumentation</span><span class="chip">DAQ</span><span class="chip">MATLAB</span>
+          <span class="chip">FFT</span><span class="chip">Validation</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <h2>2) FPGA / VHDL Projects</h2>
+        <p class="muted">Small digital systems and games implemented on FPGA.</p>
+        <ul>
+          <li>Flappy Bird (VHDL) on FPGA</li>
+          <li>Binary guessing game (FPGA + Vivado)</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">VHDL</span><span class="chip">FPGA</span><span class="chip">Vivado</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <h2>3) Analog / Mixed-Signal Projects</h2>
+        <ul>
+          <li>4-bit Flash ADC design (Cadence)</li>
+          <li>PWM circuit, audio amplifier, function generator</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Analog</span><span class="chip">ADC</span><span class="chip">Cadence</span><span class="chip">PWM</span>
+        </div>
+
+        <div class="sep"></div>
+
+        <h2>4) Embedded / C Projects</h2>
+        <ul>
+          <li>PIC16F877A clock project</li>
+          <li>Mastermind (C)</li>
+          <li>Mini image-processing library (C, CLI)</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">C</span><span class="chip">PIC</span><span class="chip">Embedded</span>
+        </div>
+      </section>
+
+      <section class="card half">
+        <h2>Skills</h2>
+        <p class="muted"><b>Programming:</b> C, Python, SQL, VHDL</p>
+        <p class="muted"><b>Tools:</b> MATLAB, Arduino, Proteus, LaTeX</p>
+        <p class="muted"><b>Domains:</b> Embedded systems, instrumentation, signal processing, analog/digital design</p>
+      </section>
+
+      <section class="card half">
+        <h2>Contact</h2>
+        <p class="muted">Email: <a href="mailto:Hamzaschool2003@gmail.com">Hamzaschool2003@gmail.com</a></p>
+        <p class="muted">GitHub: <a href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">github.com/aittalebhamza</a></p>
+        <p class="muted">Website: <a href="https://aittalebhamza.github.io/">aittalebhamza.github.io</a></p>
+      </section>
+    </div>
+
+    <footer>
+      Built with GitHub Pages (free). Next upgrade: add screenshots + GitHub links per project.
+    </footer>
+  </div>
+</body>
+</html>
