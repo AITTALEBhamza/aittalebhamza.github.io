@@ -3,64 +3,144 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MVT-PO — Project | Hamza Ait Taleb</title>
+  <title>Project — Hamza Ait Taleb</title>
   <style>
     :root{--bg:#0b0f17;--card:#111827;--text:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--accent:#60a5fa;}
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#070a10,var(--bg));color:var(--text);}
     a{color:inherit;text-decoration:none} a:hover{color:var(--accent)}
-    .wrap{max-width:980px;margin:auto;padding:28px 18px 60px}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .wrap{max-width:980px;margin:auto;padding:28px 18px 70px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
     .btn{border:1px solid var(--line);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:12px}
-    h1{margin:18px 0 6px;font-size:34px}
+    h1{margin:18px 0 6px;font-size:34px;line-height:1.15}
+    .subtitle{color:var(--muted);font-size:16px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02)}
+    .card{margin-top:16px;background:rgba(17,24,39,.82);border:1px solid var(--line);border-radius:18px;padding:16px}
+    h2{margin:0 0 8px;font-size:18px}
+    p{margin:8px 0;color:var(--text)}
     .muted{color:var(--muted)}
-    .card{margin-top:18px;background:rgba(17,24,39,.8);border:1px solid var(--line);border-radius:18px;padding:16px}
     ul{margin:10px 0 0 18px}
     img{max-width:100%;border-radius:14px;border:1px solid var(--line);margin-top:12px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .kpi{background:rgba(255,255,255,0.02);border:1px dashed var(--line);border-radius:16px;padding:14px}
+    .kpi b{display:block;margin-bottom:4px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="top">
       <a class="btn" href="../index.html">← Back</a>
-      <a class="btn" href="../CV.pdf">Download CV</a>
-    </div>
-
-    <h1>Industrial Instrumentation System (CFL — MVT-PO)</h1>
-    <div class="muted">Project page — add your results, photos, plots, and links here.</div>
-
-    <div class="card">
-      <h2>Summary</h2>
-      <p class="muted">
-        One paragraph: what the project is, why it matters, and what you delivered.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>What I did</h2>
-      <ul>
-        <li>Acquisition chain (3-phase U/I), synchronization, timestamping, calibration</li>
-        <li>Signal processing (FFT indicators) and validation strategy</li>
-        <li>Cloud streaming / archiving (if applicable)</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Tech stack</h2>
-      <div class="grid">
-        <div class="card"><b>Tools</b><div class="muted">MATLAB, …</div></div>
-        <div class="card"><b>Hardware</b><div class="muted">Sensors, DAQ, …</div></div>
-        <div class="card"><b>Methods</b><div class="muted">FFT, validation tests, …</div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="../CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+        <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Contact</a>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Gallery</h2>
-      <div class="muted">Upload images into <b>assets/mvt-po/</b> then link them here.</div>
+    <!-- =========================
+         EDIT THIS HEADER BLOCK
+    ========================== -->
+    <h1>Project Title</h1>
+    <div class="subtitle">One-line description: what you built + why it matters.</div>
 
-      <!-- Example image: -->
-      <!-- <img src="../assets/mvt-po/setup.jpg" alt="Test setup"> -->
+    <div class="meta">
+      <span class="chip">Domain: Analog / Digital / DSP</span>
+      <span class="chip">Tools: MATLAB / VHDL / C / …</span>
+      <span class="chip">Year: 2025</span>
+      <span class="chip">Type: Academic / Internship / Personal</span>
+    </div>
+
+    <!-- =========================
+         1) CONTEXT / PROBLEM
+    ========================== -->
+    <div class="card">
+      <h2>Context & Problem</h2>
+      <p class="muted">
+        Explain the situation in 3–6 lines. What was the problem? Why is it important?
+      </p>
+    </div>
+
+    <!-- =========================
+         2) REQUIREMENTS
+    ========================== -->
+    <div class="card">
+      <h2>Requirements / Constraints</h2>
+      <ul>
+        <li>Constraint 1 (numbers if possible)</li>
+        <li>Constraint 2</li>
+        <li>Constraint 3</li>
+      </ul>
+    </div>
+
+    <!-- =========================
+         3) SOLUTION
+    ========================== -->
+    <div class="card">
+      <h2>Solution / Architecture</h2>
+      <p class="muted">Describe your approach and the architecture. Add a diagram if you have one.</p>
+
+      <!-- Example diagram image -->
+      <!-- <img src="../assets/project-name/architecture.png" alt="Architecture diagram"> -->
+    </div>
+
+    <!-- =========================
+         4) IMPLEMENTATION
+    ========================== -->
+    <div class="card">
+      <h2>Implementation</h2>
+      <div class="grid">
+        <div class="kpi">
+          <b>Hardware</b>
+          <div class="muted">Sensors, MCU/FPGA, ADC, power, protection…</div>
+        </div>
+        <div class="kpi">
+          <b>Software / Firmware</b>
+          <div class="muted">C, VHDL modules, MATLAB scripts, pipelines…</div>
+        </div>
+        <div class="kpi">
+          <b>Key Decisions</b>
+          <div class="muted">Sampling rate choice, filtering method, protocol, etc.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         5) RESULTS
+    ========================== -->
+    <div class="card">
+      <h2>Results</h2>
+      <ul>
+        <li>Result 1 (quantified if possible)</li>
+        <li>Result 2</li>
+        <li>Result 3</li>
+      </ul>
+
+      <!-- Example result images -->
+      <!-- <img src="../assets/project-name/result1.png" alt="Result plot 1"> -->
+      <!-- <img src="../assets/project-name/result2.jpg" alt="Prototype photo"> -->
+    </div>
+
+    <!-- =========================
+         6) WHAT I LEARNED / NEXT
+    ========================== -->
+    <div class="card">
+      <h2>What I learned / Next steps</h2>
+      <p class="muted">
+        3–5 bullet points maximum. Keep it short and honest.
+      </p>
+    </div>
+
+    <!-- =========================
+         7) LINKS
+    ========================== -->
+    <div class="card">
+      <h2>Links</h2>
+      <ul>
+        <li><a href="#" target="_blank" rel="noreferrer">GitHub repository</a></li>
+        <li><a href="#" target="_blank" rel="noreferrer">Report PDF</a></li>
+        <li><a href="#" target="_blank" rel="noreferrer">Demo video</a></li>
+      </ul>
+      <p class="muted">Tip: if code is private, write “Code available on request”.</p>
     </div>
   </div>
 </body>
