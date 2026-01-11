@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MVT-PO — Project | Hamza Ait Taleb</title>
+  <style>
+    :root{--bg:#0b0f17;--card:#111827;--text:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--accent:#60a5fa;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#070a10,var(--bg));color:var(--text);}
+    a{color:inherit;text-decoration:none} a:hover{color:var(--accent)}
+    .wrap{max-width:980px;margin:auto;padding:28px 18px 60px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:12px}
+    h1{margin:18px 0 6px;font-size:34px}
+    .muted{color:var(--muted)}
+    .card{margin-top:18px;background:rgba(17,24,39,.8);border:1px solid var(--line);border-radius:18px;padding:16px}
+    ul{margin:10px 0 0 18px}
+    img{max-width:100%;border-radius:14px;border:1px solid var(--line);margin-top:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="btn" href="../index.html">← Back</a>
+      <a class="btn" href="../CV.pdf">Download CV</a>
+    </div>
+
+    <h1>Industrial Instrumentation System (CFL — MVT-PO)</h1>
+    <div class="muted">Project page — add your results, photos, plots, and links here.</div>
+
+    <div class="card">
+      <h2>Summary</h2>
+      <p class="muted">
+        One paragraph: what the project is, why it matters, and what you delivered.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>What I did</h2>
+      <ul>
+        <li>Acquisition chain (3-phase U/I), synchronization, timestamping, calibration</li>
+        <li>Signal processing (FFT indicators) and validation strategy</li>
+        <li>Cloud streaming / archiving (if applicable)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Tech stack</h2>
+      <div class="grid">
+        <div class="card"><b>Tools</b><div class="muted">MATLAB, …</div></div>
+        <div class="card"><b>Hardware</b><div class="muted">Sensors, DAQ, …</div></div>
+        <div class="card"><b>Methods</b><div class="muted">FFT, validation tests, …</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Gallery</h2>
+      <div class="muted">Upload images into <b>assets/mvt-po/</b> then link them here.</div>
+
+      <!-- Example image: -->
+      <!-- <img src="../assets/mvt-po/setup.jpg" alt="Test setup"> -->
+    </div>
+  </div>
+</body>
+</html>
