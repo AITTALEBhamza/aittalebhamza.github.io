@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Monte Carlo Photon Transport — Hamza Ait Taleb</title>
+
+  <style>
+    :root{--bg:#0b0f17;--card:#111827;--text:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--accent:#60a5fa;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#070a10,var(--bg));color:var(--text);}
+    a{color:inherit;text-decoration:none} a:hover{color:var(--accent)}
+    .wrap{max-width:980px;margin:auto;padding:28px 18px 70px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:12px}
+    h1{margin:18px 0 6px;font-size:34px;line-height:1.15}
+    .subtitle{color:var(--muted);font-size:16px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02)}
+    .card{margin-top:16px;background:rgba(17,24,39,.82);border:1px solid var(--line);border-radius:18px;padding:16px}
+    h2{margin:0 0 8px;font-size:18px}
+    p{margin:8px 0;color:var(--text)}
+    .muted{color:var(--muted)}
+    ul{margin:10px 0 0 18px}
+    img{max-width:100%;border-radius:14px;border:1px solid var(--line);margin-top:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .kpi{background:rgba(255,255,255,0.02);border:1px dashed var(--line);border-radius:16px;padding:14px}
+    .kpi b{display:block;margin-bottom:4px}
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <a class="btn" href="../index.html">← Back</a>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="../CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+      <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Contact</a>
+    </div>
+  </div>
+
+  <h1>Monte Carlo Simulation of Photon Transport</h1>
+  <div class="subtitle">
+    Implemented and validated a Monte Carlo model to study ballistic and diffusive light propagation
+    in scattering media.
+  </div>
+
+  <div class="meta">
+    <span class="chip">Domain: Signal Processing / Computational Physics</span>
+    <span class="chip">Tools: C, Monte Carlo, LaTeX</span>
+    <span class="chip">Year: 2025</span>
+    <span class="chip">Type: Academic Project</span>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Context & Problem</h2>
+    <p class="muted">
+      Light propagation in scattering media is a key problem in biomedical optics and optical diagnostics.
+      Analytical solutions are limited when multiple scattering dominates, making Monte Carlo methods
+      the reference approach for modeling photon transport.
+    </p>
+    <p class="muted">
+      The objective of this project was to implement a full Monte Carlo photon transport simulation,
+      compute physically meaningful observables, and validate the results against analytical expectations
+      and benchmark configurations.
+    </p>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Requirements / Constraints</h2>
+    <ul>
+      <li>Homogeneous scattering slab with configurable optical properties</li>
+      <li>Henyey–Greenstein phase function for anisotropic scattering</li>
+      <li>Separation of ballistic and diffuse photon components</li>
+      <li>Angular and depth-resolved measurements</li>
+      <li>Statistical convergence using ≥ 50,000 photons per simulation</li>
+    </ul>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Solution / Architecture</h2>
+    <p class="muted">
+      Photon packets are launched normally onto the slab and undergo repeated cycles of free propagation,
+      absorption, and scattering until they exit the medium or their weight becomes negligible.
+    </p>
+    <p class="muted">
+      Step lengths are sampled from an exponential distribution, scattering angles follow the
+      Henyey–Greenstein phase function, and absorption is handled using the implicit capture method.
+      Boundary crossings are detected to classify photons as reflected, transmitted, ballistic, or diffuse.
+    </p>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Implementation</h2>
+    <div class="grid">
+      <div class="kpi">
+        <b>Core Algorithm</b>
+        <div class="muted">
+          Photon packet model, exponential step sampling, Russian roulette termination.
+        </div>
+      </div>
+      <div class="kpi">
+        <b>Scattering & Absorption</b>
+        <div class="muted">
+          Henyey–Greenstein phase function, implicit absorption.
+        </div>
+      </div>
+      <div class="kpi">
+        <b>Post-processing</b>
+        <div class="muted">
+          Solid-angle normalization, angular binning, depth-resolved fluence computation.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Results</h2>
+    <ul>
+      <li>Ballistic transmittance matches the analytical Beer–Lambert prediction.</li>
+      <li>Diffuse reflectance and transmittance values are consistent with Monte Carlo benchmarks.</li>
+      <li>Angular distributions show expected isotropic behavior at small angles and decay at grazing angles.</li>
+      <li>Depth-resolved fluence follows diffusion theory beyond one transport mean free path.</li>
+      <li>Higher refractive index leads to stronger photon confinement inside the slab.</li>
+    </ul>
+
+    <!-- You can add plots later here -->
+    <!-- <img src="../assets/monte-carlo/fluence.png" alt="Depth-resolved fluence"> -->
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>What I learned / Next steps</h2>
+    <ul>
+      <li>Importance of validating numerical simulations against analytical limits.</li>
+      <li>Trade-off between statistical noise and computational cost.</li>
+      <li>Clear separation between ballistic and diffusive transport regimes.</li>
+      <li>Possible extension to multilayer media or wavelength-dependent properties.</li>
+    </ul>
+  </div>
+
+  <!-- ========================= -->
+  <div class="card">
+    <h2>Links</h2>
+    <ul>
+      <li>Detailed report (PDF)</li>
+      <li>Source code — available on request</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
