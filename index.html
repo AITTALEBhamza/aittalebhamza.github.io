@@ -10,13 +10,15 @@
   --bg1:#070a10;
   --bg2:#0b1224;
   --card:rgba(255,255,255,0.06);
+  --panel:rgba(255,255,255,0.03);
   --text:#eaf0ff;
   --muted:rgba(234,240,255,0.72);
   --line:rgba(255,255,255,0.12);
   --accent:#22d3ee;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box; scroll-behavior:smooth}
+
 body{
   margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
@@ -26,29 +28,68 @@ body{
     radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,0.18), transparent 60%),
     linear-gradient(180deg,var(--bg1),var(--bg2));
 }
+
+/* subtle tech grid overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0.18;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at 30% 10%, black 0%, transparent 55%);
+}
+
 a{text-decoration:none;color:inherit}
 a:hover{color:var(--accent)}
-.wrap{max-width:1200px;margin:auto;padding:40px 20px}
 
-/* HERO */
+.wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* ================= HERO ================= */
+
 .hero{
   border:1px solid var(--line);
   border-radius:28px;
   padding:70px 40px;
-  background:rgba(255,255,255,0.03);
+  background:var(--panel);
+  position:relative;
+  overflow:hidden;
 }
+
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(34,211,238,0.16), transparent 55%),
+    radial-gradient(900px 520px at 85% 0%, rgba(167,139,250,0.12), transparent 55%);
+}
+
 .hero-grid{
+  position:relative;
   display:grid;
-  grid-template-columns:360px 1fr;
+  grid-template-columns: 360px 1fr;
   gap:50px;
   align-items:center;
 }
+
+/* LEFT IMAGE */
 .hero-img{
   width:100%;
   border-radius:22px;
   object-fit:cover;
   box-shadow:0 20px 60px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.08);
 }
+
+/* RIGHT TITLE */
 .title{
   margin:0;
   font-weight:900;
@@ -56,65 +97,111 @@ a:hover{color:var(--accent)}
   line-height:0.95;
   letter-spacing:4px;
   font-size:95px;
+  color:var(--text);
 }
+
 .title span{display:block}
+
+/* SUBTEXT */
 .subtitle{
   margin-top:28px;
   font-size:20px;
   color:var(--muted);
   line-height:1.5;
 }
+
 .school{
   margin-top:10px;
   font-size:16px;
   color:rgba(234,240,255,0.6);
 }
+
+.mini-row{
+  margin-top:14px;
+  color:rgba(234,240,255,0.62);
+  font-size:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+
+/* BUTTONS */
 .buttons{
   margin-top:30px;
   display:flex;
   gap:14px;
   flex-wrap:wrap;
 }
+
 .buttons a{
   padding:12px 18px;
   border-radius:14px;
   border:1px solid var(--line);
   background:rgba(255,255,255,0.04);
-  transition:0.2s;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
+
 .buttons a.primary{
   border-color:rgba(34,211,238,0.6);
   background:rgba(34,211,238,0.15);
 }
-.buttons a:hover{transform:translateY(-2px)}
 
-/* SECTIONS */
+.buttons a:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(0,0,0,0.35);
+  border-color:rgba(34,211,238,0.45);
+}
+
+/* ================= SECTIONS ================= */
+
 .section{margin-top:80px}
+
 .section h2{
   font-size:28px;
   border-bottom:1px solid var(--line);
   padding-bottom:12px;
   margin:0;
 }
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:22px;
   margin-top:25px;
 }
+
 .card{
+  position:relative;
+  overflow:hidden;
   background:var(--card);
   border:1px solid var(--line);
   border-radius:22px;
   padding:24px;
-  transition:0.2s;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(600px 200px at 10% 10%, rgba(34,211,238,0.20), transparent 60%);
+  opacity:0;
+  transition:opacity .25s ease;
+  pointer-events:none;
+}
+
 .card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(34,211,238,0.4);
+  transform:translateY(-6px);
+  border-color:rgba(34,211,238,0.45);
+  box-shadow:0 22px 60px rgba(0,0,0,0.35);
 }
+
+.card:hover::before{opacity:1}
+
 .card h3{margin:0;font-size:20px}
 .card p{margin-top:10px;color:var(--muted)}
+
 .list{margin:12px 0 0 18px;color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .chip{
@@ -133,11 +220,20 @@ footer{
   color:rgba(234,240,255,0.55);
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
+
 @media (max-width:1000px){
-  .hero-grid{grid-template-columns:1fr;text-align:center}
-  .title{font-size:60px}
-  .buttons{justify-content:center}
+  .hero-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .title{
+    font-size:60px;
+    letter-spacing:3px;
+  }
+  .buttons{
+    justify-content:center;
+  }
 }
 </style>
 </head>
@@ -149,8 +245,10 @@ footer{
   <div class="hero">
     <div class="hero-grid">
 
-      <img class="hero-img" src="assets/hero-tech.png" alt="Hamza">
+      <!-- IMAGE LEFT -->
+      <img class="hero-img" src="assets/hero-tech.png" alt="Hamza Ait Taleb">
 
+      <!-- TEXT RIGHT -->
       <div>
         <h1 class="title">
           <span>HAMZA</span>
@@ -166,16 +264,23 @@ footer{
           ENSEIRB-MATMECA (Bordeaux INP) • Exchange at POSTECH (South Korea)
         </div>
 
+        <div class="mini-row">
+          <span>⚡ Instrumentation</span><span>•</span>
+          <span>🧠 Signal Processing</span><span>•</span>
+          <span>🛠️ Embedded & FPGA</span>
+        </div>
+
         <div class="buttons">
           <a class="primary" href="CV.pdf" download>Download CV</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
           <a href="mailto:Hamzaschool2003@gmail.com">Email</a>
           <a href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
 
         <div class="small" style="margin-top:16px">
-          Interested in internships / graduate roles in instrumentation, embedded systems, and signal processing.
+          Open to internships / graduate roles in instrumentation, embedded systems, and signal processing.
         </div>
       </div>
 
