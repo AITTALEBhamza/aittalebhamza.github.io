@@ -15,8 +15,8 @@
   --muted:rgba(234,240,255,0.72);
   --line:rgba(255,255,255,0.12);
   --accent:#22d3ee;
+  --accent2:#a78bfa;
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 
@@ -30,7 +30,7 @@ body{
     linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 
-/* Subtle grid + spotlight (spotlight updated by JS vars) */
+/* grid + spotlight */
 body::before{
   content:"";
   position:fixed;
@@ -56,7 +56,9 @@ body::after{
   mix-blend-mode:screen;
 }
 
-/* progress bar */
+a{text-decoration:none;color:inherit}
+a:hover{color:var(--accent)}
+
 .progress{
   position:fixed;
   top:0; left:0;
@@ -90,7 +92,6 @@ body::after{
   gap:10px;
   color:rgba(234,240,255,0.9);
   font-weight:700;
-  letter-spacing:0.2px;
 }
 .dot{
   width:10px;height:10px;border-radius:50%;
@@ -122,15 +123,11 @@ body::after{
   background:rgba(34,211,238,0.10);
 }
 
-/* layout */
 .wrap{
   max-width:1200px;
   margin:auto;
   padding:28px 20px 70px;
 }
-
-a{text-decoration:none;color:inherit}
-a:hover{color:var(--accent)}
 
 /* HERO */
 .hero{
@@ -201,25 +198,42 @@ a:hover{color:var(--accent)}
   gap:14px;
   flex-wrap:wrap;
 }
-.buttons a{
+.btn{
   padding:12px 18px;
   border-radius:14px;
   border:1px solid var(--line);
   background:rgba(255,255,255,0.04);
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  display:inline-block;
 }
-.buttons a.primary{
+.btn.primary{
   border-color:rgba(34,211,238,0.6);
   background:rgba(34,211,238,0.15);
 }
-.buttons a:hover{
+.btn:hover{
   transform:translateY(-2px);
   box-shadow:0 16px 40px rgba(0,0,0,0.35);
   border-color:rgba(34,211,238,0.45);
 }
 .small{color:rgba(234,240,255,0.6);font-size:14px;line-height:1.55}
 
-/* SECTIONS */
+/* Stats row (makes it look worked-on) */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+.stat{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  border-radius:18px;
+  padding:14px 14px;
+}
+.stat b{display:block;font-size:18px}
+.stat span{color:rgba(234,240,255,0.62);font-size:13px}
+
+/* Sections */
 .section{margin-top:80px}
 .section h2{
   font-size:28px;
@@ -233,6 +247,7 @@ a:hover{color:var(--accent)}
   gap:22px;
   margin-top:25px;
 }
+
 .card{
   position:relative;
   overflow:hidden;
@@ -259,7 +274,7 @@ a:hover{color:var(--accent)}
 .card:hover::before{opacity:1}
 .card h3{margin:0;font-size:20px}
 .card p{margin-top:10px;color:var(--muted)}
-.list{margin:12px 0 0 18px;color:var(--muted)}
+
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .chip{
   font-size:13px;
@@ -269,6 +284,88 @@ a:hover{color:var(--accent)}
   background:rgba(255,255,255,0.03);
   color:var(--muted);
 }
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,0.35);
+  background:rgba(34,211,238,0.10);
+  color:rgba(234,240,255,0.90);
+  margin-bottom:12px;
+}
+
+/* Featured projects layout */
+.featured{
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:22px;
+  margin-top:25px;
+}
+.case{
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.04);
+  position:relative;
+}
+.case-top{
+  padding:22px 22px 0;
+}
+.case-img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.10);
+  margin-top:14px;
+}
+.case-body{
+  padding:22px;
+}
+.case h3{margin:0;font-size:22px}
+.case p{margin-top:10px;color:var(--muted)}
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  border-radius:18px;
+  padding:12px 12px;
+}
+.kpi b{display:block}
+.kpi span{font-size:13px;color:rgba(234,240,255,0.62)}
+
+/* Timeline */
+.timeline{
+  margin-top:25px;
+  border-left:1px solid rgba(255,255,255,0.12);
+  padding-left:20px;
+  display:grid;
+  gap:18px;
+}
+.t-item{
+  position:relative;
+  padding:16px 18px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  border-radius:18px;
+}
+.t-item::before{
+  content:"";
+  position:absolute;
+  left:-27px;
+  top:20px;
+  width:12px;height:12px;border-radius:50%;
+  background:rgba(34,211,238,0.9);
+  box-shadow:0 0 18px rgba(34,211,238,0.35);
+}
+.t-item b{display:block}
+.t-item .meta{color:rgba(234,240,255,0.55);font-size:13px;margin-top:6px}
 
 /* Reveal */
 .reveal{
@@ -297,7 +394,9 @@ footer{
   .hero-img{height:360px}
   .title{font-size:60px;letter-spacing:3px}
   .buttons{justify-content:center}
-  .nav-inner{gap:10px}
+  .stats{grid-template-columns:1fr}
+  .featured{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -307,14 +406,12 @@ footer{
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="brand">
-      <span class="dot"></span>
-      <span>Hamza Ait Taleb</span>
-    </div>
-    <div class="nav-links" id="navLinks">
+    <div class="brand"><span class="dot"></span><span>Hamza Ait Taleb</span></div>
+    <div class="nav-links">
       <a href="#about" data-section="about">About</a>
+      <a href="#featured" data-section="featured">Featured</a>
       <a href="#skills" data-section="skills">Skills</a>
-      <a href="#experience" data-section="experience">Experience</a>
+      <a href="#experience" data-section="experience">Timeline</a>
       <a href="#projects" data-section="projects">Projects</a>
       <a href="#contact" data-section="contact">Contact</a>
     </div>
@@ -327,6 +424,7 @@ footer{
   <div class="hero" id="top">
     <div class="hero-grid">
       <img class="hero-img" id="heroImg" src="assets/hero-tech.png" alt="Hamza Ait Taleb">
+
       <div>
         <h1 class="title">
           <span>HAMZA</span>
@@ -349,14 +447,20 @@ footer{
         </div>
 
         <div class="buttons">
-          <a class="primary" href="CV.pdf" download>Download CV</a>
-          <a href="#projects">View Projects</a>
-          <a href="mailto:Hamzaschool2003@gmail.com">Email</a>
-          <a href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn primary" href="CV.pdf" download>Download CV</a>
+          <a class="btn" href="#featured">Featured Work</a>
+          <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Email</a>
+          <a class="btn" href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
 
-        <div class="small" style="margin-top:16px">
+        <div class="stats">
+          <div class="stat"><b>Instrumentation</b><span>End-to-end sensing → validation</span></div>
+          <div class="stat"><b>Embedded & DAQ</b><span>MCU/FPGA + acquisition pipelines</span></div>
+          <div class="stat"><b>Modeling & DSP</b><span>Simulation, analysis, verification</span></div>
+        </div>
+
+        <div class="small" style="margin-top:14px">
           Open to internships / graduate roles in instrumentation, embedded systems, and signal processing.
         </div>
       </div>
@@ -370,8 +474,77 @@ footer{
       <p class="small" style="margin:0">
         I’m an electronics engineering student at ENSEIRB-MATMECA (Bordeaux INP), with an exchange at POSTECH.
         I design and validate multidisciplinary systems from sensing and acquisition to signal processing and verification.
-        I enjoy bridging hardware and software to build robust measurement and instrumentation pipelines.
+        I like building robust systems that go from real sensors to reliable decisions.
       </p>
+    </div>
+  </div>
+
+  <!-- FEATURED PROJECTS -->
+  <div class="section reveal" id="featured" data-observe>
+    <h2>Featured Projects</h2>
+
+    <div class="featured">
+
+      <!-- Case Study 1 -->
+      <div class="case">
+        <div class="case-top">
+          <span class="badge">Featured • Internship</span>
+          <h3>Industrial Instrumentation System (CFL – MVT-PO)</h3>
+          <p>3-phase sensing, synchronized acquisition, signal processing dashboards and validation pipeline.</p>
+          <!-- Add your future image here if you want: assets/mvt-po/cover.jpg -->
+          <img class="case-img" src="assets/hero-tech.png" alt="Project cover">
+        </div>
+
+        <div class="case-body">
+          <div class="chips">
+            <span class="chip">3-phase sensing</span>
+            <span class="chip">DAQ</span>
+            <span class="chip">Validation</span>
+            <span class="chip">Instrumentation</span>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><b>Goal</b><span>Reliable measurement chain</span></div>
+            <div class="kpi"><b>Focus</b><span>Sync acquisition + processing</span></div>
+            <div class="kpi"><b>Output</b><span>Dashboards + verification</span></div>
+          </div>
+
+          <div class="buttons" style="margin-top:16px">
+            <a class="btn primary" href="projects/mvt-po.html">Open project page</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2 -->
+      <div class="case">
+        <div class="case-top">
+          <span class="badge">Featured • Research</span>
+          <h3>Monte Carlo Photon Transport</h3>
+          <p>Monte Carlo simulation of ballistic + diffuse transport, angular distributions and depth fluence.</p>
+          <!-- Put a photon visual image here: assets/photon/cover.png -->
+          <img class="case-img" src="assets/hero-tech.png" alt="Project cover">
+        </div>
+
+        <div class="case-body">
+          <div class="chips">
+            <span class="chip">C</span>
+            <span class="chip">Henyey–Greenstein</span>
+            <span class="chip">Russian roulette</span>
+            <span class="chip">Fluence</span>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><b>Goal</b><span>Physically consistent model</span></div>
+            <div class="kpi"><b>Method</b><span>MC transport + binning</span></div>
+            <div class="kpi"><b>Result</b><span>Benchmarked outputs</span></div>
+          </div>
+
+          <div class="buttons" style="margin-top:16px">
+            <a class="btn primary" href="projects/monte-carlo-photon-transport.html">Open project page</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -412,62 +585,81 @@ footer{
     </div>
   </div>
 
-  <!-- EXPERIENCE -->
+  <!-- TIMELINE -->
   <div class="section reveal" id="experience" data-observe>
-    <h2>Experience & Education</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>CFL — Industrial Instrumentation (MVT-PO)</h3>
-        <p class="small">
-          3-phase voltage/current sensing, synchronized acquisition, signal processing dashboards and validation.
-        </p>
-        <ul class="list">
-          <li>Measurement chain design and verification</li>
-          <li>Data acquisition + processing pipeline</li>
-          <li>System-level validation</li>
-        </ul>
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <b>CFL — Industrial Instrumentation System (MVT-PO)</b>
+        <div class="meta">Internship • measurement chain, acquisition & validation</div>
       </div>
-      <div class="card">
-        <h3>ENSEIRB-MATMECA • POSTECH (Exchange)</h3>
-        <p class="small">
-          Electronics engineering curriculum with projects in embedded systems, signal processing, and modeling.
-        </p>
-        <ul class="list">
-          <li>Analog / digital systems</li>
-          <li>Signal processing & numerical methods</li>
-          <li>Multidisciplinary project work</li>
-        </ul>
+      <div class="t-item">
+        <b>POSTECH — Exchange Semester</b>
+        <div class="meta">Advanced coursework • projects in DSP, modeling, electronics</div>
+      </div>
+      <div class="t-item">
+        <b>ENSEIRB-MATMECA — Electronics Engineering</b>
+        <div class="meta">Analog, digital, embedded systems, signal processing</div>
       </div>
     </div>
   </div>
 
   <!-- PROJECTS -->
   <div class="section reveal" id="projects" data-observe>
-    <h2>Projects</h2>
+    <h2>All Projects</h2>
     <div class="grid">
       <a class="card" href="projects/mvt-po.html">
+        <span class="badge">Internship</span>
         <h3>Industrial Instrumentation System (CFL – MVT-PO)</h3>
         <p>3-phase sensing, synchronized acquisition, signal processing and validation.</p>
+        <div class="chips">
+          <span class="chip">DAQ</span><span class="chip">Validation</span><span class="chip">Instrumentation</span>
+        </div>
       </a>
+
       <a class="card" href="projects/monte-carlo-photon-transport.html">
+        <span class="badge">Research</span>
         <h3>Monte Carlo Photon Transport Simulation</h3>
-        <p>Numerical modeling and validation of ballistic and diffusive light propagation.</p>
+        <p>Ballistic + diffuse transport, angular distributions, depth fluence.</p>
+        <div class="chips">
+          <span class="chip">C</span><span class="chip">Monte Carlo</span><span class="chip">Modeling</span>
+        </div>
       </a>
+
       <a class="card" href="projects/fpga.html">
+        <span class="badge">Digital</span>
         <h3>FPGA & Digital Design</h3>
         <p>VHDL systems, logic design and timing-aware architectures.</p>
+        <div class="chips">
+          <span class="chip">VHDL</span><span class="chip">FPGA</span><span class="chip">Timing</span>
+        </div>
       </a>
+
       <a class="card" href="projects/analog.html">
+        <span class="badge">Analog</span>
         <h3>Analog & Mixed-Signal Systems</h3>
         <p>ADC, PWM, amplifiers and signal conditioning design.</p>
+        <div class="chips">
+          <span class="chip">Analog</span><span class="chip">ADC</span><span class="chip">PWM</span>
+        </div>
       </a>
+
       <a class="card" href="projects/embedded.html">
+        <span class="badge">Embedded</span>
         <h3>Embedded Systems</h3>
         <p>Microcontrollers, low-level C and hardware–software co-design.</p>
+        <div class="chips">
+          <span class="chip">C</span><span class="chip">MCU</span><span class="chip">Drivers</span>
+        </div>
       </a>
+
       <a class="card" href="projects/signal-processing.html">
+        <span class="badge">DSP</span>
         <h3>Signal Processing</h3>
         <p>FFT, spectral analysis and modeling validation.</p>
+        <div class="chips">
+          <span class="chip">FFT</span><span class="chip">Filtering</span><span class="chip">Spectral</span>
+        </div>
       </a>
     </div>
   </div>
@@ -478,7 +670,7 @@ footer{
     <div class="grid">
       <div class="card">
         <h3>Let’s connect</h3>
-        <p class="small">For internships, graduate roles, collaborations, or project discussions:</p>
+        <p class="small">Internships, graduate roles, collaborations, or project discussions:</p>
         <ul class="list">
           <li><a href="mailto:Hamzaschool2003@gmail.com">Hamzaschool2003@gmail.com</a></li>
           <li><a href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">github.com/aittalebhamza</a></li>
@@ -489,8 +681,8 @@ footer{
         <h3>CV</h3>
         <p class="small">Download or open the PDF:</p>
         <div class="buttons" style="justify-content:flex-start;margin-top:12px">
-          <a class="primary" href="CV.pdf" download>Download CV</a>
-          <a href="CV.pdf" target="_blank" rel="noreferrer">Open in new tab</a>
+          <a class="btn primary" href="CV.pdf" download>Download CV</a>
+          <a class="btn" href="CV.pdf" target="_blank" rel="noreferrer">Open in new tab</a>
         </div>
       </div>
     </div>
@@ -500,7 +692,7 @@ footer{
 </div>
 
 <script>
-/* Spotlight follows mouse (subtle) */
+/* Spotlight follows mouse */
 window.addEventListener('mousemove', (e) => {
   const x = (e.clientX / window.innerWidth) * 100;
   const y = (e.clientY / window.innerHeight) * 100;
@@ -508,7 +700,7 @@ window.addEventListener('mousemove', (e) => {
   document.body.style.setProperty('--my', y + '%');
 });
 
-/* Scroll progress bar */
+/* Scroll progress */
 const progress = document.getElementById('progress');
 function updateProgress(){
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -519,7 +711,7 @@ function updateProgress(){
 window.addEventListener('scroll', updateProgress);
 window.addEventListener('load', updateProgress);
 
-/* Reveal using IntersectionObserver */
+/* Reveal */
 const toReveal = document.querySelectorAll('[data-observe]');
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
@@ -529,14 +721,11 @@ const observer = new IntersectionObserver((entries)=>{
     }
   });
 }, { threshold: 0.12 });
-
 toReveal.forEach(el => observer.observe(el));
 
-/* Active nav link based on section in view */
+/* Active nav */
 const navLinks = [...document.querySelectorAll('.nav-links a')];
-const sections = navLinks
-  .map(a => document.getElementById(a.dataset.section))
-  .filter(Boolean);
+const sections = navLinks.map(a => document.getElementById(a.dataset.section)).filter(Boolean);
 
 const spy = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
@@ -548,7 +737,7 @@ const spy = new IntersectionObserver((entries)=>{
 
 sections.forEach(sec => spy.observe(sec));
 
-/* Subtle image parallax */
+/* Parallax hero image */
 const heroImg = document.getElementById('heroImg');
 window.addEventListener('scroll', ()=>{
   const y = window.scrollY;
