@@ -217,22 +217,6 @@ a:hover{color:var(--accent)}
 }
 .small{color:rgba(234,240,255,0.6);font-size:14px;line-height:1.55}
 
-/* Stats row (makes it look worked-on) */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin-top:18px;
-}
-.stat{
-  border:1px solid rgba(255,255,255,0.10);
-  background:rgba(255,255,255,0.03);
-  border-radius:18px;
-  padding:14px 14px;
-}
-.stat b{display:block;font-size:18px}
-.stat span{color:rgba(234,240,255,0.62);font-size:13px}
-
 /* Sections */
 .section{margin-top:80px}
 .section h2{
@@ -295,51 +279,6 @@ a:hover{color:var(--accent)}
   margin-bottom:12px;
 }
 
-/* Featured projects layout */
-.featured{
-  display:grid;
-  grid-template-columns:1.2fr 0.8fr;
-  gap:22px;
-  margin-top:25px;
-}
-.case{
-  border:1px solid var(--line);
-  border-radius:24px;
-  overflow:hidden;
-  background:rgba(255,255,255,0.04);
-  position:relative;
-}
-.case-top{
-  padding:22px 22px 0;
-}
-.case-img{
-  width:100%;
-  height:240px;
-  object-fit:cover;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,0.10);
-  margin-top:14px;
-}
-.case-body{
-  padding:22px;
-}
-.case h3{margin:0;font-size:22px}
-.case p{margin-top:10px;color:var(--muted)}
-.kpis{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-top:14px;
-}
-.kpi{
-  border:1px solid rgba(255,255,255,0.10);
-  background:rgba(255,255,255,0.03);
-  border-radius:18px;
-  padding:12px 12px;
-}
-.kpi b{display:block}
-.kpi span{font-size:13px;color:rgba(234,240,255,0.62)}
-
 /* Timeline */
 .timeline{
   margin-top:25px;
@@ -394,9 +333,6 @@ footer{
   .hero-img{height:360px}
   .title{font-size:60px;letter-spacing:3px}
   .buttons{justify-content:center}
-  .stats{grid-template-columns:1fr}
-  .featured{grid-template-columns:1fr}
-  .kpis{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -409,7 +345,6 @@ footer{
     <div class="brand"><span class="dot"></span><span>Hamza Ait Taleb</span></div>
     <div class="nav-links">
       <a href="#about" data-section="about">About</a>
-      <a href="#featured" data-section="featured">Featured</a>
       <a href="#skills" data-section="skills">Skills</a>
       <a href="#experience" data-section="experience">Timeline</a>
       <a href="#projects" data-section="projects">Projects</a>
@@ -448,16 +383,10 @@ footer{
 
         <div class="buttons">
           <a class="btn primary" href="CV.pdf" download>Download CV</a>
-          <a class="btn" href="#featured">Featured Work</a>
+          <a class="btn" href="#projects">View Projects</a>
           <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Email</a>
           <a class="btn" href="https://github.com/aittalebhamza" target="_blank" rel="noreferrer">GitHub</a>
           <a class="btn" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
-
-        <div class="stats">
-          <div class="stat"><b>Instrumentation</b><span>End-to-end sensing → validation</span></div>
-          <div class="stat"><b>Embedded & DAQ</b><span>MCU/FPGA + acquisition pipelines</span></div>
-          <div class="stat"><b>Modeling & DSP</b><span>Simulation, analysis, verification</span></div>
         </div>
 
         <div class="small" style="margin-top:14px">
@@ -474,77 +403,7 @@ footer{
       <p class="small" style="margin:0">
         I’m an electronics engineering student at ENSEIRB-MATMECA (Bordeaux INP), with an exchange at POSTECH.
         I design and validate multidisciplinary systems from sensing and acquisition to signal processing and verification.
-        I like building robust systems that go from real sensors to reliable decisions.
       </p>
-    </div>
-  </div>
-
-  <!-- FEATURED PROJECTS -->
-  <div class="section reveal" id="featured" data-observe>
-    <h2>Featured Projects</h2>
-
-    <div class="featured">
-
-      <!-- Case Study 1 -->
-      <div class="case">
-        <div class="case-top">
-          <span class="badge">Featured • Internship</span>
-          <h3>Industrial Instrumentation System (CFL – MVT-PO)</h3>
-          <p>3-phase sensing, synchronized acquisition, signal processing dashboards and validation pipeline.</p>
-          <!-- Add your future image here if you want: assets/mvt-po/cover.jpg -->
-          <img class="case-img" src="assets/hero-tech.png" alt="Project cover">
-        </div>
-
-        <div class="case-body">
-          <div class="chips">
-            <span class="chip">3-phase sensing</span>
-            <span class="chip">DAQ</span>
-            <span class="chip">Validation</span>
-            <span class="chip">Instrumentation</span>
-          </div>
-
-          <div class="kpis">
-            <div class="kpi"><b>Goal</b><span>Reliable measurement chain</span></div>
-            <div class="kpi"><b>Focus</b><span>Sync acquisition + processing</span></div>
-            <div class="kpi"><b>Output</b><span>Dashboards + verification</span></div>
-          </div>
-
-          <div class="buttons" style="margin-top:16px">
-            <a class="btn primary" href="projects/mvt-po.html">Open project page</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Case Study 2 -->
-      <div class="case">
-        <div class="case-top">
-          <span class="badge">Featured • Research</span>
-          <h3>Monte Carlo Photon Transport</h3>
-          <p>Monte Carlo simulation of ballistic + diffuse transport, angular distributions and depth fluence.</p>
-          <!-- Put a photon visual image here: assets/photon/cover.png -->
-          <img class="case-img" src="assets/hero-tech.png" alt="Project cover">
-        </div>
-
-        <div class="case-body">
-          <div class="chips">
-            <span class="chip">C</span>
-            <span class="chip">Henyey–Greenstein</span>
-            <span class="chip">Russian roulette</span>
-            <span class="chip">Fluence</span>
-          </div>
-
-          <div class="kpis">
-            <div class="kpi"><b>Goal</b><span>Physically consistent model</span></div>
-            <div class="kpi"><b>Method</b><span>MC transport + binning</span></div>
-            <div class="kpi"><b>Result</b><span>Benchmarked outputs</span></div>
-          </div>
-
-          <div class="buttons" style="margin-top:16px">
-            <a class="btn primary" href="projects/monte-carlo-photon-transport.html">Open project page</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -606,8 +465,9 @@ footer{
 
   <!-- PROJECTS -->
   <div class="section reveal" id="projects" data-observe>
-    <h2>All Projects</h2>
+    <h2>Projects</h2>
     <div class="grid">
+
       <a class="card" href="projects/mvt-po.html">
         <span class="badge">Internship</span>
         <h3>Industrial Instrumentation System (CFL – MVT-PO)</h3>
@@ -661,6 +521,7 @@ footer{
           <span class="chip">FFT</span><span class="chip">Filtering</span><span class="chip">Spectral</span>
         </div>
       </a>
+
     </div>
   </div>
 
