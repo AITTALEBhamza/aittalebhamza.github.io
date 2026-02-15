@@ -30,6 +30,12 @@ body{
     linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 
+  @keyframes shine{
+  0%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+  100%{ background-position: 0% 50%; }
+}
+
 /* grid + spotlight */
 body::before{
   content:"";
@@ -170,8 +176,30 @@ a:hover{color:var(--accent)}
   line-height:0.95;
   letter-spacing:4px;
   font-size:95px;
+
+  background: linear-gradient(
+    90deg,
+    #eaf0ff 0%,
+    #22d3ee 25%,
+    #a78bfa 50%,
+    #22d3ee 75%,
+    #eaf0ff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 8s ease-in-out infinite;
+
+  text-shadow:
+    0 0 12px rgba(34,211,238,0.25),
+    0 0 30px rgba(167,139,250,0.15);
 }
-.title span{display:block}
+
+.title span{
+  display:block;
+}
+
 .subtitle{
   margin-top:28px;
   font-size:20px;
