@@ -1,200 +1,663 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Monte Carlo Photon Transport — Hamza Ait Taleb</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monte Carlo Photon Transport — Hamza Ait Taleb</title>
 
-  <style>
-    :root{--bg:#0b0f17;--card:#111827;--text:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--accent:#60a5fa;}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#070a10,var(--bg));color:var(--text);}
-    a{color:inherit;text-decoration:none} a:hover{color:var(--accent)}
-    .wrap{max-width:980px;margin:auto;padding:28px 18px 70px}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:12px}
-    h1{margin:18px 0 6px;font-size:34px;line-height:1.15}
-    .subtitle{color:var(--muted);font-size:16px}
-    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-    .chip{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02)}
-    .card{margin-top:16px;background:rgba(17,24,39,.82);border:1px solid var(--line);border-radius:18px;padding:16px}
-    h2{margin:0 0 8px;font-size:18px}
-    p{margin:8px 0;color:var(--text)}
-    .muted{color:var(--muted)}
-    ul{margin:10px 0 0 18px}
-    img{max-width:100%;border-radius:14px;border:1px solid var(--line);margin-top:12px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .kpi{background:rgba(255,255,255,0.02);border:1px dashed var(--line);border-radius:16px;padding:14px}
-    .kpi b{display:block;margin-bottom:4px}
-  </style>
+<style>
+:root{
+  --bg1:#070a10;
+  --bg2:#0b1224;
+  --card:rgba(255,255,255,0.06);
+  --panel:rgba(255,255,255,0.03);
+  --text:#eaf0ff;
+  --muted:rgba(234,240,255,0.72);
+  --line:rgba(255,255,255,0.12);
+  --accent:#22d3ee;
+  --accent2:#a78bfa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(900px 600px at 10% 10%, rgba(34,211,238,0.18), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,0.14), transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+
+/* background grid */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0.18;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(circle at 30% 10%, black 0%, transparent 55%);
+}
+
+/* spotlight */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(600px 600px at var(--mx, 50%) var(--my, 15%),
+      rgba(34,211,238,0.16),
+      transparent 60%);
+  opacity:0.65;
+  mix-blend-mode:screen;
+}
+
+a{text-decoration:none;color:inherit}
+a:hover{color:var(--accent)}
+
+.progress{
+  position:fixed;
+  top:0; left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg, rgba(34,211,238,1), rgba(167,139,250,0.9));
+  z-index:9999;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:28px 20px 80px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+
+.topbar-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.04);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.btn.primary{
+  border-color:rgba(34,211,238,0.55);
+  background:rgba(34,211,238,0.12);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(0,0,0,0.35);
+  border-color:rgba(34,211,238,0.45);
+}
+
+.hero{
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:56px 36px;
+  background:var(--panel);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(34,211,238,0.16), transparent 55%),
+    radial-gradient(900px 520px at 85% 0%, rgba(167,139,250,0.12), transparent 55%);
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+}
+
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,0.35);
+  background:rgba(34,211,238,0.10);
+  color:rgba(234,240,255,0.90);
+  margin-bottom:16px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:28px;
+  align-items:end;
+}
+
+.hero h1{
+  margin:0;
+  line-height:0.96;
+  letter-spacing:2px;
+  font-size:64px;
+  text-transform:uppercase;
+}
+
+.hero p{
+  margin:22px 0 0;
+  max-width:760px;
+  font-size:19px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.hero-side{
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.03);
+  border-radius:22px;
+  padding:12px;
+  transform:translateY(var(--panelShift, 0px));
+  transition:transform .12s linear;
+  min-height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-image{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+  object-fit:contain;
+  background:#0b0f17;
+}
+
+.hero-caption{
+  margin-top:10px;
+  font-size:13px;
+  color:rgba(234,240,255,0.58);
+  line-height:1.5;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.chip{
+  font-size:13px;
+  padding:7px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,0.03);
+  color:var(--muted);
+}
+
+.section{
+  margin-top:42px;
+  scroll-margin-top:90px;
+}
+
+.section-header{
+  margin-bottom:16px;
+}
+
+.section-header h2{
+  margin:0;
+  font-size:28px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+
+.content{
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:26px;
+  background:var(--card);
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.content:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,211,238,0.38);
+  box-shadow:0 20px 50px rgba(0,0,0,0.28);
+}
+
+.content p{
+  margin:0;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.8;
+}
+
+.content p + p{
+  margin-top:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:22px;
+}
+
+.block{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  background:var(--card);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.block::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:radial-gradient(600px 200px at 10% 10%, rgba(34,211,238,0.18), transparent 60%);
+  opacity:0;
+  transition:opacity .25s ease;
+  pointer-events:none;
+}
+
+.block:hover{
+  transform:translateY(-6px);
+  border-color:rgba(34,211,238,0.45);
+  box-shadow:0 22px 60px rgba(0,0,0,0.35);
+}
+
+.block:hover::before{
+  opacity:1;
+}
+
+.block h3{
+  margin:0 0 12px;
+  font-size:20px;
+}
+
+.block p,
+.block li{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.visual-box,
+.presentation-box{
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  background:var(--card);
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.visual-box:hover,
+.presentation-box:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,211,238,0.38);
+  box-shadow:0 20px 50px rgba(0,0,0,0.28);
+}
+
+.project-image{
+  width:100%;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:#0b0f17;
+}
+
+.caption{
+  margin-top:12px;
+  color:rgba(234,240,255,0.58);
+  font-size:14px;
+  line-height:1.6;
+}
+
+.pdf-frame{
+  width:100%;
+  height:720px;
+  border:none;
+  border-radius:16px;
+  background:#0a0f1c;
+}
+
+.note{
+  margin-top:14px;
+  color:rgba(234,240,255,0.58);
+  font-size:14px;
+  line-height:1.6;
+}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:rgba(234,240,255,0.55);
+}
+
+/* reveal */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  filter:blur(6px);
+  transition:
+    opacity .7s cubic-bezier(.2,.8,.2,1),
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    filter .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+@media (max-width:950px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:46px;
+  }
+
+  .hero p{
+    font-size:17px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .pdf-frame{
+    height:620px;
+  }
+}
+
+@media (max-width:560px){
+  .wrap{
+    padding:20px 14px 60px;
+  }
+
+  .hero{
+    padding:36px 22px;
+  }
+
+  .content,
+  .block,
+  .visual-box,
+  .presentation-box{
+    padding:18px;
+  }
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .pdf-frame{
+    height:500px;
+  }
+}
+</style>
 </head>
-
 <body>
+
+<div class="progress" id="progress"></div>
+
 <div class="wrap">
 
-  <div class="top">
-    <a class="btn" href="../index.html">← Back</a>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a class="btn" href="../CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
-      <a class="btn" href="mailto:Hamzaschool2003@gmail.com">Contact</a>
+  <div class="topbar reveal" data-observe>
+    <a class="btn" href="../index.html#projects">← Back to portfolio</a>
+
+    <div class="topbar-actions">
+      <a class="btn primary" href="../assets/monte-carlo/Report.pdf" target="_blank" rel="noreferrer">
+        Open Report
+      </a>
+      <a class="btn" href="../assets/monte-carlo/Report.pdf" download>
+        Download PDF
+      </a>
     </div>
   </div>
 
-  <h1>Monte Carlo Simulation of Photon Transport</h1>
-  <div class="subtitle">
-    Implemented and validated a Monte Carlo model to study ballistic and diffusive light propagation
-    in scattering media.
-  </div>
-  <img 
-    src="../assets/monte-carlo/photon-transport.png"
-    alt="Photon transport and scattering illustration"
-    style="
-      width:100%;
-      max-height:380px;
-      object-fit:contain;
-      margin-top:18px;
-      border-radius:18px;
-      border:1px solid #1f2937;
-      background:#0b0f17;
-    ">
+  <section class="hero reveal" data-observe>
+    <div class="hero-content">
+      <span class="badge">Research / Simulation</span>
 
-  
-  <div class="meta">
-    <span class="chip">Domain: Signal Processing / Computational Physics / Biomedical Engineering</span>
-    <span class="chip">Tools: C, Monte Carlo, Python, LaTeX</span>
-    <span class="chip">Year: 2025</span>
-    <span class="chip">Type: Academic Project</span>
-  </div>
+      <div class="hero-grid">
+        <div>
+          <h1>Monte Carlo<br>Photon Transport</h1>
+          <p>
+            Implemented and validated a Monte Carlo model to study ballistic and
+            diffusive light propagation in scattering media, with applications in
+            biomedical optics and computational physics.
+          </p>
 
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Context & Problem</h2>
-    <p class="muted">
-      Light propagation in scattering media is a key problem in biomedical optics and optical diagnostics.
-      Analytical solutions are limited when multiple scattering dominates, making Monte-Carlo methods
-      the reference approach for modeling photon transport.
-    </p>
-    <p class="muted">
-      The objective of this project was to implement a full Monte Carlo photon transport simulation,
-      compute physically meaningful observables, and validate the results against analytical expectations
-      and benchmark configurations.
-    </p>
-  </div>
-
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Requirements / Constraints</h2>
-    <ul>
-      <li>Homogeneous scattering slab with configurable optical properties</li>
-      <li>Henyey–Greenstein phase function for anisotropic scattering</li>
-      <li>Separation of ballistic and diffuse photon components</li>
-      <li>Angular and depth-resolved measurements</li>
-      <li>Statistical convergence using ≥ 50,000 photons per simulation</li>
-    </ul>
-  </div>
-
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Solution / Architecture</h2>
-    <p class="muted">
-      Photon packets are launched normally onto the slab and undergo repeated cycles of free propagation,
-      absorption, and scattering until they exit the medium or their weight becomes negligible.
-    </p>
-    <p class="muted">
-      Step lengths are sampled from an exponential distribution, scattering angles follow the
-      Henyey–Greenstein phase function, and absorption is handled using the implicit capture method.
-      Boundary crossings are detected to classify photons as reflected, transmitted, ballistic, or diffuse.
-    </p>
-  </div>
-
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Implementation</h2>
-    <div class="grid">
-      <div class="kpi">
-        <b>Core Algorithm</b>
-        <div class="muted">
-          Photon packet model, exponential step sampling, Russian roulette termination.
+          <div class="chips">
+            <span class="chip">C</span>
+            <span class="chip">Monte Carlo</span>
+            <span class="chip">Computational Physics</span>
+            <span class="chip">Biomedical Optics</span>
+            <span class="chip">Python</span>
+            <span class="chip">LaTeX</span>
+          </div>
         </div>
-      </div>
-      <div class="kpi">
-        <b>Scattering & Absorption</b>
-        <div class="muted">
-          Henyey–Greenstein phase function, implicit absorption.
-        </div>
-      </div>
-      <div class="kpi">
-        <b>Post-processing</b>
-        <div class="muted">
-          Solid-angle normalization, angular binning, depth-resolved fluence computation.
+
+        <div class="hero-side" id="heroSide">
+          <img
+            class="hero-image"
+            src="../assets/monte-carlo/photon-transport.png"
+            alt="Photon transport and scattering illustration"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="hero-caption" style="display:none;">
+            Photon transport and scattering illustration.
+          </div>
         </div>
       </div>
     </div>
-    <img 
-    src="../assets/monte-carlo/Schema.png"
-      alt="Photon transport and scattering illustration"
-      style="
-        width:100%;
-        max-height:380px;
-        object-fit:contain;
-        margin-top:18px;
-        border-radius:18px;
-        border:1px solid #1f2937;
-        background:#0b0f17;
-      ">
-  </div>
+  </section>
 
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Results</h2>
-    <ul>
-      <li>Ballistic transmittance matches the analytical Beer–Lambert prediction.</li>
-      <li>Diffuse reflectance and transmittance values are consistent with Monte Carlo benchmarks.</li>
-      <li>Angular distributions show expected isotropic behavior at small angles and decay at grazing angles.</li>
-      <li>Depth-resolved fluence follows diffusion theory beyond one transport mean free path.</li>
-      <li>Higher refractive index leads to stronger photon confinement inside the slab.</li>
-    </ul>
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Overview</h2>
+    </div>
 
-    <div class="card">
-      <h2>Full Report (PDF)</h2>
-    
-      <iframe 
-        src="../assets/monte-carlo/Report.pdf"
-        style="width:100%; height:600px; border:1px solid #1f2937; border-radius:14px;"
-        loading="lazy">
-      </iframe>
-    
-      <p class="muted">
-        Scroll directly inside the page. 
-        <a href="../assets/monte-carlo/Report.pdf" target="_blank">Open in new tab</a>
+    <div class="content">
+      <p>
+        Light propagation in scattering media is a central problem in biomedical optics,
+        imaging, and optical diagnostics. When multiple scattering dominates, analytical
+        solutions become limited and Monte Carlo simulation becomes the reference method.
       </p>
+      <p>
+        The goal of this project was to implement a full photon transport simulator,
+        compute physically meaningful observables, and validate the results against
+        analytical expectations and benchmark configurations.
+      </p>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Project Details</h2>
+    </div>
+
+    <div class="grid">
+      <div class="block">
+        <h3>Requirements / Constraints</h3>
+        <ul>
+          <li>Homogeneous scattering slab with configurable optical properties</li>
+          <li>Henyey–Greenstein phase function for anisotropic scattering</li>
+          <li>Separation of ballistic and diffuse photon components</li>
+          <li>Angular and depth-resolved measurements</li>
+          <li>Statistical convergence with at least 50,000 photons per run</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>Solution / Architecture</h3>
+        <p>
+          Photon packets are launched normally onto the slab and undergo repeated
+          cycles of free propagation, absorption, and scattering until they leave
+          the medium or their weight becomes negligible.
+        </p>
+      </div>
+
+      <div class="block">
+        <h3>Implementation</h3>
+        <ul>
+          <li>Exponential step-length sampling</li>
+          <li>Henyey–Greenstein scattering</li>
+          <li>Implicit absorption</li>
+          <li>Russian roulette termination</li>
+          <li>Angular binning and depth-resolved fluence</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>Key Results</h3>
+        <ul>
+          <li>Ballistic transmittance matches Beer–Lambert prediction</li>
+          <li>Diffuse reflectance and transmittance align with benchmarks</li>
+          <li>Angular distributions show expected physical behavior</li>
+          <li>Depth fluence follows diffusion theory beyond one transport mean free path</li>
+          <li>Higher refractive index increases photon confinement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Architecture Visual</h2>
+    </div>
+
+    <div class="visual-box">
+      <img
+        class="project-image"
+        src="../assets/monte-carlo/Schema.png"
+        alt="Monte Carlo photon transport simulation architecture"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      >
+      <div class="caption">
+        Core photon transport workflow and simulation structure.
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Report</h2>
+    </div>
+
+    <div class="presentation-box">
+      <iframe
+        class="pdf-frame"
+        src="../assets/monte-carlo/Report.pdf#view=FitH"
+        title="Monte Carlo Photon Transport Report">
+      </iframe>
+
+      <div class="note">
+        Some browsers do not render embedded PDFs perfectly. Use “Open Report”
+        if the preview is incomplete.
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Takeaways</h2>
+    </div>
+
+    <div class="grid">
+      <div class="block">
+        <h3>What I Learned</h3>
+        <ul>
+          <li>Validation against analytical limits is essential</li>
+          <li>Statistical noise and computation time must be balanced</li>
+          <li>Ballistic and diffusive regimes must be clearly separated</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>Next Steps</h3>
+        <ul>
+          <li>Extend the model to multilayer media</li>
+          <li>Add wavelength-dependent optical properties</li>
+          <li>Publish source code or interactive results</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="reveal" data-observe>© 2026 — Hamza Ait Taleb</footer>
 </div>
 
+<script>
+window.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  document.body.style.setProperty('--mx', x + '%');
+  document.body.style.setProperty('--my', y + '%');
+});
 
-    <!-- You can add plots later here -->
-    <!-- <img src="../assets/monte-carlo/fluence.png" alt="Depth-resolved fluence"> -->
-  </div>
+const progress = document.getElementById('progress');
+function updateProgress(){
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = height > 0 ? (scrollTop / height) * 100 : 0;
+  progress.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress);
+window.addEventListener('load', updateProgress);
 
-  <!-- ========================= -->
-  <div class="card">
-    <h2>What I learned / Next steps</h2>
-    <ul>
-      <li>Importance of validating numerical simulations against analytical limits.</li>
-      <li>Trade-off between statistical noise and computational cost.</li>
-      <li>Clear separation between ballistic and diffusive transport regimes.</li>
-      <li>Possible extension to multilayer media or wavelength-dependent properties.</li>
-    </ul>
-  </div>
+const toReveal = document.querySelectorAll('[data-observe]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
-  <!-- ========================= -->
-  <div class="card">
-    <h2>Links</h2>
-    <ul>
-      <li>Report (PDF)</li>
-      <li>Source code (Available on request)</li>
-    </ul>
-  </div>
+toReveal.forEach(el => observer.observe(el));
 
-</div>
+const heroSide = document.getElementById('heroSide');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const shift = Math.max(-12, Math.min(12, y * 0.02));
+  if(heroSide){
+    heroSide.style.setProperty('--panelShift', `${-shift}px`);
+  }
+});
+</script>
+
 </body>
 </html>
