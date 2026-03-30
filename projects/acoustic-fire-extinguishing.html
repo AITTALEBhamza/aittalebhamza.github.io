@@ -9,194 +9,621 @@
 :root{
   --bg1:#070a10;
   --bg2:#0b1224;
+  --card:rgba(255,255,255,0.06);
+  --panel:rgba(255,255,255,0.03);
   --text:#eaf0ff;
-  --muted:rgba(234,240,255,0.7);
+  --muted:rgba(234,240,255,0.72);
   --line:rgba(255,255,255,0.12);
   --accent:#22d3ee;
+  --accent2:#a78bfa;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
-  font-family:system-ui;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(800px 500px at 20% 0%, rgba(34,211,238,0.12), transparent 60%),
+    radial-gradient(900px 600px at 10% 10%, rgba(34,211,238,0.18), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,0.14), transparent 60%),
     linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 
-/* layout */
+/* background grid */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0.18;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(circle at 30% 10%, black 0%, transparent 55%);
+}
+
+/* spotlight */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(600px 600px at var(--mx, 50%) var(--my, 15%),
+      rgba(34,211,238,0.16),
+      transparent 60%);
+  opacity:0.65;
+  mix-blend-mode:screen;
+}
+
+a{text-decoration:none;color:inherit}
+a:hover{color:var(--accent)}
+
+.progress{
+  position:fixed;
+  top:0; left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg, rgba(34,211,238,1), rgba(167,139,250,0.9));
+  z-index:9999;
+}
+
 .wrap{
   max-width:1100px;
   margin:auto;
-  padding:40px 20px 80px;
+  padding:28px 20px 80px;
 }
 
-/* header */
-.top{
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:40px;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+
+.topbar-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
 .btn{
-  padding:10px 16px;
-  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  border-radius:14px;
   border:1px solid var(--line);
   background:rgba(255,255,255,0.04);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.btn.primary{
+  border-color:rgba(34,211,238,0.55);
+  background:rgba(34,211,238,0.12);
 }
 
 .btn:hover{
-  border-color:var(--accent);
-  color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(0,0,0,0.35);
+  border-color:rgba(34,211,238,0.45);
 }
 
-/* HERO */
 .hero{
-  margin-bottom:80px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:56px 36px;
+  background:var(--panel);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(34,211,238,0.16), transparent 55%),
+    radial-gradient(900px 520px at 85% 0%, rgba(167,139,250,0.12), transparent 55%);
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+}
+
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,0.35);
+  background:rgba(34,211,238,0.10);
+  color:rgba(234,240,255,0.90);
+  margin-bottom:16px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:28px;
+  align-items:end;
 }
 
 .hero h1{
-  font-size:64px;
   margin:0;
-  line-height:1.05;
+  line-height:0.96;
+  letter-spacing:2px;
+  font-size:72px;
+  text-transform:uppercase;
 }
 
 .hero p{
-  font-size:20px;
+  margin:22px 0 0;
+  max-width:760px;
+  font-size:19px;
+  line-height:1.7;
   color:var(--muted);
-  margin-top:20px;
-  max-width:700px;
 }
 
-/* section */
+.hero-side{
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.03);
+  border-radius:22px;
+  padding:22px;
+  transform: translateY(var(--panelShift, 0px));
+  transition: transform .12s linear;
+}
+
+.hero-side h3{
+  margin:0 0 12px;
+  font-size:18px;
+}
+
+.hero-side p{
+  margin:0;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.chip{
+  font-size:13px;
+  padding:7px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,0.03);
+  color:var(--muted);
+}
+
 .section{
-  margin-top:80px;
+  margin-top:42px;
+  scroll-margin-top:90px;
 }
 
-.section h2{
-  font-size:26px;
-  margin-bottom:20px;
+.section-header{
+  margin-bottom:16px;
+}
+
+.section-header h2{
+  margin:0;
+  font-size:28px;
+  padding-bottom:12px;
   border-bottom:1px solid var(--line);
-  padding-bottom:10px;
 }
 
-.text{
+.content{
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:26px;
+  background:var(--card);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.content:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,211,238,0.38);
+  box-shadow:0 20px 50px rgba(0,0,0,0.28);
+}
+
+.content p{
+  margin:0;
+  color:var(--muted);
   font-size:17px;
+  line-height:1.8;
+}
+
+.content p + p{
+  margin-top:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:22px;
+}
+
+.block{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  background:var(--card);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.block::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:radial-gradient(600px 200px at 10% 10%, rgba(34,211,238,0.18), transparent 60%);
+  opacity:0;
+  transition:opacity .25s ease;
+  pointer-events:none;
+}
+
+.block:hover{
+  transform:translateY(-6px);
+  border-color:rgba(34,211,238,0.45);
+  box-shadow:0 22px 60px rgba(0,0,0,0.35);
+}
+
+.block:hover::before{
+  opacity:1;
+}
+
+.block h3{
+  margin:0 0 12px;
+  font-size:20px;
+}
+
+.block p,
+.block li{
   color:var(--muted);
   line-height:1.8;
-  max-width:800px;
 }
 
-/* highlight */
+.block ul{
+  margin:0;
+  padding-left:18px;
+}
+
 .highlight{
   color:var(--text);
   font-weight:700;
 }
 
-/* list */
-ul{
-  color:var(--muted);
-  line-height:1.9;
-}
-
-/* presentation */
-.viewer{
-  margin-top:30px;
+.presentation-box,
+.image-box{
   border:1px solid var(--line);
-  border-radius:16px;
-  overflow:hidden;
+  border-radius:24px;
+  padding:18px;
+  background:var(--card);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
-iframe{
+.presentation-box:hover,
+.image-box:hover{
+  transform:translateY(-4px);
+  border-color:rgba(34,211,238,0.38);
+  box-shadow:0 20px 50px rgba(0,0,0,0.28);
+}
+
+.pdf-frame{
   width:100%;
   height:900px;
   border:none;
-}
-
-/* image */
-.img{
-  margin-top:30px;
   border-radius:16px;
-  width:100%;
-  border:1px solid var(--line);
+  background:#0a0f1c;
 }
 
-/* mobile */
-@media(max-width:800px){
-  .hero h1{font-size:40px}
-  iframe{height:600px}
+.note{
+  margin-top:14px;
+  color:rgba(234,240,255,0.58);
+  font-size:14px;
+  line-height:1.6;
+}
+
+.project-image{
+  width:100%;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.caption{
+  margin-top:12px;
+  color:rgba(234,240,255,0.58);
+  font-size:14px;
+  line-height:1.6;
+}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:rgba(234,240,255,0.55);
+}
+
+/* reveal */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  filter:blur(6px);
+  transition:
+    opacity .7s cubic-bezier(.2,.8,.2,1),
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    filter .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+@media (max-width:950px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:48px;
+  }
+
+  .hero p{
+    font-size:17px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .pdf-frame{
+    height:650px;
+  }
+}
+
+@media (max-width:560px){
+  .wrap{
+    padding:20px 14px 60px;
+  }
+
+  .hero{
+    padding:36px 22px;
+  }
+
+  .content,
+  .block,
+  .presentation-box,
+  .image-box{
+    padding:18px;
+  }
+
+  .hero h1{
+    font-size:38px;
+  }
+
+  .pdf-frame{
+    height:520px;
+  }
 }
 </style>
 </head>
-
 <body>
+
+<div class="progress" id="progress"></div>
+
 <div class="wrap">
 
-  <div class="top">
-    <a class="btn" href="../index.html#projects">← Back</a>
-    <div>
-      <a class="btn" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf" target="_blank">Open PDF</a>
-      <a class="btn" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf" download>Download</a>
+  <div class="topbar reveal" data-observe>
+    <a class="btn" href="../index.html#projects">← Back to portfolio</a>
+
+    <div class="topbar-actions">
+      <a class="btn primary" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf" target="_blank" rel="noreferrer">
+        Open Presentation
+      </a>
+      <a class="btn" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdff" download>
+        Download PDF
+      </a>
     </div>
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Acoustic Fire<br>Extinguishing</h1>
-    <p>
-      Design and experimental validation of a fire suppression system based on
-      low-frequency acoustic waves combining physics, analog electronics and prototyping.
-    </p>
-  </div>
+  <section class="hero reveal" data-observe>
+    <div class="hero-content">
+      <span class="badge">Physics / Electronics</span>
 
-  <!-- OVERVIEW -->
-  <div class="section">
-    <h2>Overview</h2>
-    <div class="text">
-      This project explores how sound waves can disrupt flame stability.
-      By generating controlled low-frequency acoustic waves and amplifying them,
-      it is possible to destabilize combustion and extinguish fire without chemicals.
+      <div class="hero-grid">
+        <div>
+          <h1>Acoustic Fire<br>Extinguishing</h1>
+          <p>
+            Study and implementation of a fire suppression prototype based on
+            low-frequency acoustic waves, combining wave physics, analog electronics,
+            experimental testing, and presentation material.
+          </p>
+
+          <div class="chips">
+            <span class="chip">Acoustics</span>
+            <span class="chip">Analog Electronics</span>
+            <span class="chip">Wien Bridge Oscillator</span>
+            <span class="chip">LM386</span>
+            <span class="chip">Prototype</span>
+            <span class="chip">Validation</span>
+          </div>
+        </div>
+
+        <div class="hero-side" id="heroSide">
+          <h3>Key takeaway</h3>
+          <p>
+            The most effective extinction range was approximately
+            <span class="highlight">40 Hz – 85 Hz</span>, with improved performance
+            when using a collimator to focus the acoustic energy.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- SYSTEM -->
-  <div class="section">
-    <h2>System Design</h2>
-    <ul>
-      <li>Wien bridge oscillator → low-frequency generation</li>
-      <li>LM386 amplifier → power amplification</li>
-      <li>80W loudspeaker → acoustic emission</li>
-      <li>Collimator → directional sound focusing</li>
-    </ul>
-  </div>
-
-  <!-- RESULT -->
-  <div class="section">
-    <h2>Key Result</h2>
-    <div class="text">
-      Effective extinction observed in the range
-      <span class="highlight">40 Hz – 85 Hz</span>.
-      Performance significantly improves when acoustic energy is focused.
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Overview</h2>
     </div>
-  </div>
 
-  <!-- PRESENTATION -->
-  <div class="section">
-    <h2>Presentation</h2>
-
-    <div class="viewer">
-      <iframe src="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf#view=FitH"></iframe>
+    <div class="content">
+      <p>
+        This project explores how low-frequency sound waves can destabilize a flame
+        and contribute to fire extinction without relying on chemical agents.
+      </p>
+      <p>
+        The work included theoretical analysis of acoustic wave propagation,
+        experimental investigation of the useful frequency range, design of a Wien bridge
+        oscillator, implementation of an LM386-based amplification stage, and assembly
+        of a complete prototype.
+      </p>
     </div>
-  </div>
+  </section>
 
-  <!-- IMAGE -->
-  <div class="section">
-    <h2>Prototype</h2>
-    <img class="img" src="../assets/acoustic-fire-extinguishing/acoustic-fire-project.png">
-  </div>
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Project Details</h2>
+    </div>
 
+    <div class="grid">
+      <div class="block">
+        <h3>Problem Statement</h3>
+        <p>
+          How can sound waves be used to extinguish fire, and how can an acoustic
+          extinguisher be designed and implemented?
+        </p>
+      </div>
+
+      <div class="block">
+        <h3>Key Result</h3>
+        <p>
+          Effective extinction was observed in the range
+          <span class="highlight">40 Hz – 85 Hz</span>,
+          with better results when the acoustic energy was focused.
+        </p>
+      </div>
+
+      <div class="block">
+        <h3>System Design</h3>
+        <ul>
+          <li>Wien bridge oscillator for low-frequency generation</li>
+          <li>LM386 audio amplifier for signal amplification</li>
+          <li>80 W / 6 Ω loudspeaker for acoustic emission</li>
+          <li>Collimator for directional sound focusing</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>Skills Developed</h3>
+        <ul>
+          <li>Analog electronics design</li>
+          <li>Oscillator and amplifier implementation</li>
+          <li>Experimental prototyping</li>
+          <li>Scientific modeling</li>
+          <li>System-level validation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Presentation</h2>
+    </div>
+
+    <div class="presentation-box">
+      <iframe
+        class="pdf-frame"
+        src="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf#view=FitH"
+        title="Acoustic Fire Extinguishing Presentation">
+      </iframe>
+
+      <div class="note">
+        Some browsers do not render embedded PDFs perfectly. Use “Open Presentation”
+        if the preview is incomplete.
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" data-observe>
+    <div class="section-header">
+      <h2>Project Visual</h2>
+    </div>
+
+    <div class="image-box">
+      <img
+        class="project-image"
+        src="../assets/acoustic-fire-extinguishing/acoustic-fire-project.png"
+        alt="Acoustic Fire Extinguishing project visual"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      >
+      <div class="caption">
+        Prototype photo.
+      </div>
+    </div>
+  </section>
+
+  <footer class="reveal" data-observe>© 2026 — Hamza Ait Taleb</footer>
 </div>
+
+<script>
+/* spotlight follows mouse */
+window.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  document.body.style.setProperty('--mx', x + '%');
+  document.body.style.setProperty('--my', y + '%');
+});
+
+/* scroll progress */
+const progress = document.getElementById('progress');
+function updateProgress(){
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = height > 0 ? (scrollTop / height) * 100 : 0;
+  progress.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress);
+window.addEventListener('load', updateProgress);
+
+/* reveal on scroll */
+const toReveal = document.querySelectorAll('[data-observe]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+toReveal.forEach(el => observer.observe(el));
+
+/* subtle parallax on hero side panel */
+const heroSide = document.getElementById('heroSide');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const shift = Math.max(-12, Math.min(12, y * 0.02));
+  if(heroSide){
+    heroSide.style.setProperty('--panelShift', `${-shift}px`);
+  }
+});
+</script>
+
 </body>
 </html>
+
