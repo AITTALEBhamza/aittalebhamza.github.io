@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acoustic Fire Extinguishing System — Hamza Ait Taleb</title>
+
+<style>
+:root{
+  --bg1:#070a10;
+  --bg2:#0b1224;
+  --card:rgba(255,255,255,0.06);
+  --panel:rgba(255,255,255,0.03);
+  --text:#eaf0ff;
+  --muted:rgba(234,240,255,0.72);
+  --line:rgba(255,255,255,0.12);
+  --accent:#22d3ee;
+  --accent2:#a78bfa;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 600px at 10% 10%, rgba(34,211,238,0.18), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,0.14), transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+a{text-decoration:none;color:inherit}
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:32px 20px 70px;
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:30px;
+}
+.btn{
+  padding:12px 18px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.04);
+  display:inline-block;
+}
+.btn:hover{
+  border-color:rgba(34,211,238,0.45);
+  color:var(--accent);
+}
+.hero{
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:42px 30px;
+  background:var(--panel);
+}
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,0.35);
+  background:rgba(34,211,238,0.10);
+  color:rgba(234,240,255,0.90);
+  margin-bottom:14px;
+}
+h1{
+  margin:0 0 14px;
+  font-size:44px;
+  line-height:1.05;
+}
+.subtitle{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+  max-width:850px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+  margin-top:28px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+}
+.card h2{
+  margin:0 0 14px;
+  font-size:22px;
+}
+.card p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.7;
+}
+ul{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.8;
+}
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+.chip{
+  font-size:13px;
+  padding:7px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,0.03);
+  color:var(--muted);
+}
+.section{
+  margin-top:24px;
+}
+.image-box{
+  margin-top:28px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+}
+.image-box img{
+  width:100%;
+  border-radius:16px;
+  display:block;
+}
+.caption{
+  margin-top:12px;
+  color:rgba(234,240,255,0.58);
+  font-size:14px;
+}
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:rgba(234,240,255,0.55);
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <a class="btn" href="../index.html#projects">← Back to portfolio</a>
+  </div>
+
+  <div class="hero">
+    <span class="badge">Physics / Electronics</span>
+    <h1>Acoustic Fire Extinguishing System</h1>
+    <div class="subtitle">
+      Study and implementation of an acoustic fire suppression prototype based on low-frequency sound waves, combining physics modeling, analog electronics, and experimental validation.
+    </div>
+
+    <div class="chips">
+      <span class="chip">Analog Electronics</span>
+      <span class="chip">Acoustics</span>
+      <span class="chip">Wien Bridge Oscillator</span>
+      <span class="chip">LM386</span>
+      <span class="chip">Prototype Design</span>
+    </div>
+  </div>
+
+  <div class="grid section">
+    <div class="card">
+      <h2>Overview</h2>
+      <p>
+        This project investigates the use of low-frequency acoustic waves to disturb and extinguish flames.
+        The work included theoretical study of sound propagation, simulation of the extinction mechanism,
+        design of a low-frequency generator, implementation of an audio amplification stage, and prototype testing.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Main Objective</h2>
+      <p>
+        Design an acoustic extinguisher capable of generating and amplifying low-frequency sound waves
+        to experimentally evaluate their effect on flame disturbance and extinction.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>System Architecture</h2>
+      <ul>
+        <li>Low-frequency generator based on a Wien bridge oscillator</li>
+        <li>Audio amplifier using LM386</li>
+        <li>80 W / 6 Ω loudspeaker</li>
+        <li>Acoustic collimator to improve sound focusing</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Technical Work</h2>
+      <ul>
+        <li>Study of sound wave propagation in air</li>
+        <li>Simulation of flame perturbation mechanism</li>
+        <li>Frequency range investigation</li>
+        <li>Oscillator design and implementation</li>
+        <li>Audio amplification and prototype assembly</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Key Result</h2>
+      <p>
+        Experimental tests showed an effective flame extinction range approximately between 40 Hz and 85 Hz,
+        with improved efficiency when using an acoustic collimator.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Skills Developed</h2>
+      <ul>
+        <li>Analog electronics design</li>
+        <li>Oscillator and amplifier design</li>
+        <li>Experimental prototyping</li>
+        <li>Scientific modeling</li>
+        <li>System-level validation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="image-box">
+    <img src="../assets/acoustic-fire-project.jpg" alt="Acoustic Fire Extinguishing Project">
+    <div class="caption">
+      Add here a project image, prototype photo, presentation slide, or experimental setup picture.
+    </div>
+  </div>
+
+  <footer>© 2026 — Hamza Ait Taleb</footer>
+</div>
+
+</body>
+</html>
