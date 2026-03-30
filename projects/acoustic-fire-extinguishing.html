@@ -180,15 +180,28 @@ a:hover{color:var(--accent)}
   transition: transform .12s linear;
 }
 
-.hero-side h3{
-  margin:0 0 12px;
-  font-size:18px;
+.hero-image-box{
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:260px;
 }
 
-.hero-side p{
-  margin:0;
-  font-size:15px;
-  line-height:1.7;
+.hero-image{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+  object-fit:cover;
+}
+
+.hero-caption{
+  margin-top:10px;
+  font-size:13px;
+  color:rgba(234,240,255,0.58);
+  line-height:1.5;
 }
 
 .chips{
@@ -305,8 +318,7 @@ a:hover{color:var(--accent)}
   font-weight:700;
 }
 
-.presentation-box,
-.image-box{
+.presentation-box{
   border:1px solid var(--line);
   border-radius:24px;
   padding:18px;
@@ -314,8 +326,7 @@ a:hover{color:var(--accent)}
   transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
-.presentation-box:hover,
-.image-box:hover{
+.presentation-box:hover{
   transform:translateY(-4px);
   border-color:rgba(34,211,238,0.38);
   box-shadow:0 20px 50px rgba(0,0,0,0.28);
@@ -331,20 +342,6 @@ a:hover{color:var(--accent)}
 
 .note{
   margin-top:14px;
-  color:rgba(234,240,255,0.58);
-  font-size:14px;
-  line-height:1.6;
-}
-
-.project-image{
-  width:100%;
-  display:block;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-.caption{
-  margin-top:12px;
   color:rgba(234,240,255,0.58);
   font-size:14px;
   line-height:1.6;
@@ -406,8 +403,7 @@ footer{
 
   .content,
   .block,
-  .presentation-box,
-  .image-box{
+  .presentation-box{
     padding:18px;
   }
 
@@ -434,7 +430,7 @@ footer{
       <a class="btn primary" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf" target="_blank" rel="noreferrer">
         Open Presentation
       </a>
-      <a class="btn" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdff" download>
+      <a class="btn" href="../assets/acoustic-fire-extinguishing/AIT_TALEB_Hamza_compressed.pdf" download>
         Download PDF
       </a>
     </div>
@@ -463,13 +459,16 @@ footer{
           </div>
         </div>
 
-        <div class="hero-side" id="heroSide">
-          <h3>Key takeaway</h3>
-          <p>
-            The most effective extinction range was approximately
-            <span class="highlight">40 Hz – 85 Hz</span>, with improved performance
-            when using a collimator to focus the acoustic energy.
-          </p>
+        <div class="hero-side hero-image-box" id="heroSide">
+          <img
+            class="hero-image"
+            src="../assets/acoustic-fire-extinguishing/acoustic-fire-project.png"
+            alt="Acoustic Fire Extinguishing prototype"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          >
+          <div class="hero-caption" style="display:none;">
+            Prototype photo.
+          </div>
         </div>
       </div>
     </div>
@@ -559,29 +558,11 @@ footer{
     </div>
   </section>
 
-  <section class="section reveal" data-observe>
-    <div class="section-header">
-      <h2>Project Visual</h2>
-    </div>
-
-    <div class="image-box">
-      <img
-        class="project-image"
-        src="../assets/acoustic-fire-extinguishing/acoustic-fire-project.png"
-        alt="Acoustic Fire Extinguishing project visual"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-      >
-      <div class="caption">
-        Prototype photo.
-      </div>
-    </div>
-  </section>
-
   <footer class="reveal" data-observe>© 2026 — Hamza Ait Taleb</footer>
 </div>
 
 <script>
-/* spotlight follows mouse */
+
 window.addEventListener('mousemove', (e) => {
   const x = (e.clientX / window.innerWidth) * 100;
   const y = (e.clientY / window.innerHeight) * 100;
@@ -589,7 +570,7 @@ window.addEventListener('mousemove', (e) => {
   document.body.style.setProperty('--my', y + '%');
 });
 
-/* scroll progress */
+
 const progress = document.getElementById('progress');
 function updateProgress(){
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -600,7 +581,7 @@ function updateProgress(){
 window.addEventListener('scroll', updateProgress);
 window.addEventListener('load', updateProgress);
 
-/* reveal on scroll */
+
 const toReveal = document.querySelectorAll('[data-observe]');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -613,7 +594,7 @@ const observer = new IntersectionObserver((entries) => {
 
 toReveal.forEach(el => observer.observe(el));
 
-/* subtle parallax on hero side panel */
+
 const heroSide = document.getElementById('heroSide');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
@@ -626,4 +607,3 @@ window.addEventListener('scroll', () => {
 
 </body>
 </html>
-
